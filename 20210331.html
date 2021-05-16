@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20210331</title>
+</head>
+
+<body>
+    <div id="1" class="test">div<span>span <span>span2</span></span></div>
+    <h3>h3</h3>
+    <div>
+        <div id="parent">
+            父元素
+            <div id="child">子元素</div>
+        </div>
+    </div>
+    <div id="btn">click</div>
+    <div class="test"></div>
+    <script>
+        // var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+        // var countedNames = names.reduce((obj, name) => {
+        //     if (name in obj) {
+        //         obj[name]++
+        //     } else {
+        //         obj[name] = 1
+        //     }
+        //     return obj
+        // }, {})
+        // //reduce的第二个参数就是obj的初始值
+        // console.log(countedNames)
+        // let arr = new Array();
+        // Array.prototype.myobj = { "a": 1 };
+        // console.log(Array.prototype);
+        // console.log(arr.__proto__.myobj);
+        function Super() {
+            this.color = ['red', 'black']
+        };
+        function Sub() {
+            Super.call(this);
+        };
+        Sub.prototype = Object(Super.prototype);
+        Sub.prototype.constructor = Sub;
+        console.log(Sub.prototype.constructor)
+        // // Sub.prototype = new Super();
+        // console.log(new Super())
+        // let person = {
+        //     'name': 'bob',
+        //     'friend': [1, 2]
+        // }
+        // let p1 = Object.create(person);
+
+        // p1.name = 'tom'
+        // console.log(p1.name)
+
+        // p1.friend.push('3');
+        // console.log(p1.friend)
+        // let p2 = Object.create(person);
+        // console.log(p2.name)
+
+        // console.log(p2.friend)
+
+        // instance.color.push("blue");
+        // console.log(instance);
+        // let instance2 = new Sub();
+        // console.log(instance2)
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+    </script>
+</body>
+
+</html>

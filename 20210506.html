@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="LF" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>动画与Canvas图形</title>
+    <style>
+      /* body,
+        html {
+            height: 2000px;
+        } */
+
+      .sp {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
+        background-color: red;
+      }
+
+      .float_div:after {
+        content: ".";
+        clear: both;
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .float_div {
+        zoom: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <span class="sp" id="test" style="width: 20%">测试</span>
+    </div>
+    <canvas id="cans" width="200" height="200">a drawing of something</canvas>
+
+    <canvas id="cans2" width="200" height="200">a drawing of something</canvas>
+
+    <canvas id="cans3" width="200" height="200">a drawing of something</canvas>
+
+    <canvas id="cans4" width="200" style="margin-top: 200px" height="200"
+      >a drawing of something</canvas
+    >
+    <script>
+      // function updateProgress() {
+      //     let span = document.getElementById("test");
+      //     span.style.width = (parseInt(span.style.width, 10) + 5) + "%";
+      //     if (span.style.width != "100%") {
+      //         console.log(span.style.left)
+      //         requestAnimationFrame(updateProgress);
+      //     }
+      // }
+      // requestAnimationFrame(updateProgress);
+      // let enqueued = true;
+      // function expensiveOperation() {
+      //     console.log("invoked at", 1111)
+      // }
+      // window.addEventListener('scroll', () => {
+      //     if (enqueued) {
+      //         enqueued = false;
+      //         window.requestAnimationFrame(expensiveOperation);
+      //         window.setTimeout(() => { enqueued = true }, 1550)
+      //     }
+      // })
+      const getImages = (el, includeDuplicates) => {
+        //includeDuplicates 是否包含重复图片
+        const images = [...el.getElementsByTagName("img")].map((img) =>
+          img.getAttribute("src")
+        );
+        // return includeDuplicates ? images : Array.from(new Set(images))
+        return includeDuplicates ? images : [...new Set(images)];
+      };
+      getImages(document, true);
+      getImages(document, false);
+
+      let drawing = document.getElementById("cans");
+      if (drawing.getContext) {
+        let context = drawing.getContext("2d");
+        context.fillStyle = "red";
+        context.save();
+
+        context.fillStyle = "green";
+        context.translate(100, 100);
+        context.save();
+
+        context.fillStyle = "blue";
+        context.fillRect(10, 10, 50, 50);
+
+        context.restore();
+        context.fillRect(10, 10, 50, 50);
+
+        context.restore();
+        context.fillRect(10, 10, 50, 50);
+        // context.fillStyle = "rgba(0,0,255,0.5)";
+        // context.fillRect(30, 30, 50, 50);
+
+        //只有轮廓，不是实心的
+        // context.strokeStyle = '#ff0000';
+        // context.strokeRect(10, 10, 50, 50);
+        // context.strokeStyle = "rgba(0,0,255,0.5)";
+        // context.strokeRect(30, 30, 50, 50);
+
+        //clearRect  让画布某个区域变成透明
+        context.clearRect(40, 40, 20, 20);
+      }
+
+      let drawing2 = document.getElementById("cans2");
+      if (drawing2.getContext) {
+        let context2 = drawing2.getContext("2d");
+        context2.beginPath();
+        context2.arc(100, 100, 99, 0, 2 * Math.PI, false);
+        context2.moveTo(194, 100); //防止绘制出多余的线条
+        context2.arc(100, 100, 94, 0, 2 * Math.PI, false);
+        //绘制分针
+        context2.moveTo(100, 100);
+        context2.lineTo(100, 15);
+        //绘制时针
+        context2.moveTo(100, 100);
+        context2.lineTo(35, 100);
+
+        // context2.translate(100, 100)//将原点移动到表盘中心
+        // context2.rotate(1)
+        // //绘制分针
+        // context2.moveTo(0, 0);
+        // context2.lineTo(0, -85);
+        // //绘制时针
+        // context2.moveTo(0, 0);
+        // context2.lineTo(-65,0);
+
+        //描画路径
+        context2.stroke();
+
+        context2.font = "bold 14px Arial";
+        context2.textAlign = "center";
+        context2.textBaseline = "middle";
+        context2.fillText("徐", 100, 20);
+
+        context2.textAlign = "start";
+        context2.fillText("龙", 100, 40);
+
+        context2.textAlign = "end";
+        context2.fillText("坤", 100, 60);
+        // isPointInPath()用于确定指定的点是不是在路径上
+        if (context2.isPointInPath(100, 15)) {
+          console.log("point (100,15) is in path");
+        }
+      }
+
+      let drawing3 = document.getElementById("cans3");
+      if (drawing3.getContext) {
+        let context3 = drawing3.getContext("2d");
+        // // 来点阴影
+        // let gradient = context3.createLinearGradient(30, 30, 70, 70);
+        // gradient.addColorStop(0, "white");
+        // gradient.addColorStop(1, "black");
+
+        // context3.fillStyle = "#ff0000";
+        // context3.fillRect(10, 10, 50, 50);
+
+        // context3.fillStyle = gradient;
+        // context3.fillRect(30, 30, 50, 50)
+
+        //径向渐变
+        let gradient = context3.createRadialGradient(55, 55, 10, 55, 55, 30);
+        gradient.addColorStop(0, "white");
+        gradient.addColorStop(1, "black");
+
+        context3.fillStyle = "#ff0000";
+        context3.fillRect(10, 10, 50, 50);
+
+        context3.fillStyle = gradient;
+        context3.fillRect(30, 30, 50, 50);
+
+        let str = "ffd d 234df ff  2134";
+        console.log(str);
+
+        str.replace(/\s/g, "");
+        console.log(str.replace(/\d/g, (match) => Number(match) + 1));
+        undefined;
+        const num = {
+          a: 10,
+          add() {
+            return this.a + 2;
+          },
+          reduce: () => this.a - 2,
+        };
+        console.log(num.add());
+        console.log(num.reduce());
+      }
+
+      let drawing4 = document.getElementById("cans4");
+      if (drawing4.getContext) {
+        let context4 = drawing4.getContext("2d");
+        context4.fillStyle="#ff0000";
+        context4.fillRect(10.,10,120,120);
+        context4.globalCompositeOperation = "destination-atop";
+        context4.fillStyle="rgba(0,0,255,1)";
+        context4.fillRect(30,30,120,120)
+      }
+    </script>
+  </body>
+</html>

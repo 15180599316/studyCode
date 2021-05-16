@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20210410</title>
+</head>
+
+<body>
+    <script>
+        // foo();
+        // async function sleep(delay) {
+        //     return new Promise((resolve) => setTimeout(resolve, delay));
+        // }
+        // async function foo() {
+        //     const t0 = Date.now();
+        //     await sleep(1500);
+        //     console.log(Date.now() - t0)
+        // }
+
+        // async function randomDelay(id) {
+        //     const delay = Math.random() * 1000;
+        //     return new Promise((resolve) => setTimeout(() => {
+        //         console.log(`${id} finished`);
+        //         resolve(id);
+        //     }, delay))
+        // }
+        // async function foo() {
+        //     const t0 = Date.now();
+        //     const promises = Array(5).fill(null).map((_, i) => randomDelay(i));
+        //     for (const p of promises) {
+        //         console.log(`awaited ${await p}`)
+        //     };
+        //     console.log(Date.now() - t0)
+        // }
+        // foo();
+
+
+        // 写一个有意思的通用函数：可以把任意多个函数作为处理程序合成一个连续传值的约期连锁
+        // function addTwo(x) {
+        //     return x + 2;
+        // }
+        // function addThree(x) {
+        //     return x + 3;
+        // } function addFive(x) {
+        //     return x + 5;
+        // }
+        // function compose(...fns) {
+        //     return (x) => fns.reduce((promise, fn) => promise.then(fn), Promise.resolve(x))
+        // }
+        // let addTen = compose(addTwo, addThree, addFive);
+        // addTen(5).then(console.log)
+
+
+        // async function addTen(x) {
+        //     for (const fn of [addTwo, addThree, addFive]) {
+        //         x = await (fn(x))
+        //     }
+        //     return x;
+        // }
+        // addTen(9).then(console.log)
+
+        function fooPromiseExecutor(resolve, reject) {
+            setTimeout(reject, 1000, 'bar')
+        }
+        function foo() {
+            new Promise(fooPromiseExecutor)
+        }
+        foo()
+        window.scrollTo({
+            left: 100,
+            top: 100,
+            behavior: 'smooth'
+        })
+        function getQueryStringArgs() {
+            let qs = (location.search.length > 0 ? location.search.substring(1) : "");
+            let args = {};
+            for (let item of qs.split("&").map((kv) => kv.split("="))) {
+                console.log(qs.split("&").map((kv) => kv.split("=")))
+                let name = decodeURIComponent(item[0]),
+                    val = decodeURIComponent(item[1]);
+                if (name.length) {
+                    args[name] = val
+                }
+            }
+            return args
+        }
+        console.log(getQueryStringArgs())
+
+        let qs = "?q=javascript&num=10";
+        let searchParams = new URLSearchParams(qs);
+        for (let param of searchParams) {
+            console.log(param)
+        }
+        window.addEventListener("popstate", (event) => {
+            console.log(event);
+            let state = event.state;
+        })
+
+        navigator.geolocation.getCurrentPosition((position) => { console.log(position) }, (e) => { console.log(e) });
+        const b = navigator.getBattery().then((b) => {console.log(b); alert(b.level)})
+    </script>
+</body>
+
+</html>

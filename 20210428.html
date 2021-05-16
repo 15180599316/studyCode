@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="LF">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第16章事件</title>
+</head>
+
+<body>
+    <!-- <div class="test" onclick="console.log('click me')">click me</div>
+    <input type="button" id="btn" value="btn" onclick="test(event)">
+    <input type="button" id="btn2" value="btn2">
+    <input type="text" id="ipt"> -->
+    <div id="myDiv">
+        right click or Ctrl+click me toget a custom content ment. click anywhere else to get the default context menu
+    </div>
+    <ul id="myMenu" style="position: absolute;visibility: hidden;background-color: silver;">
+        <li><a href="">somewhere1</a></li>
+        <li><a href="">somewhere2</a></li>
+        <li><a href="">somewhere3</a></li>
+    </ul>
+</body>
+<script>
+    //    document.getElementById("ipt").ontextInput = function (e) {
+    //         console.log(e)
+    //         console.log(e.target.tagName);
+    //         console.log(e.relatedTarget.tagName);
+    //         console.log(e.eventPhase
+    //         )
+    //         console.log(e.currentTarget)
+    //         console.log(e.target === this)
+
+    //     }
+    // document.getElementById("ipt").addEventListener("compositionstart", (e) => {
+    //     console.log(e)
+    // })
+    // document.getElementById("ipt").addEventListener("compositionupdate", (e) => {
+    //     console.log(e)
+    // })
+    // document.getElementById("ipt").addEventListener("compositionend", (e) => {
+    //     console.log(e)
+    // })
+
+    // function test(e) {
+    //     console.log(e.currentTarget)
+    //     console.log(e.target === this)
+    // }
+    // 上下文菜单 
+    // window.addEventListener("load", function () {
+    //     let div = document.getElementById('myDiv');
+    //     div.addEventListener("contextmenu", function (event) {
+    //         console.log(event)
+    //         event.preventDefault();
+    //         let menu = document.getElementById('myMenu');
+    //         menu.style.left = event.clientX;
+    //         menu.style.top = event.clientY;
+    //         menu.style.visibility = "visible";
+    //     });
+    //     document.addEventListener("click", function (e) {
+    //         document.getElementById("myMenu").style.visibility = "hidden";
+    //     })
+    // })
+
+    // window.addEventListener("beforeunload", (e) => {
+    //     console.log(e.returnValue)
+    //     let message = "i will leave";
+    //     e.returnValue = message;
+    //     console.log(e.returnValue)
+
+    //     return message;
+    // })
+    setTimeout(() => {
+        console.log("settimeout")
+    }, 0);
+    document.addEventListener("DOMContentLoaded", (event) => {
+        console.log("DOMContentLoaded")
+    })
+    
+    window.addEventListener("load", (event) => {
+        console.log(event)
+    })
+
+</script>
+
+
+</html>

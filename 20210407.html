@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端面试题</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        .other {
+            width: 100%;
+            height: 200px;
+            background-color: red;
+        }
+
+        /* .parents {
+            height: 500px; */
+        /* display: inline-block;
+            width: 100%; */
+        /* overflow: hidden; */
+        /* float: left;
+        } */
+
+        .parents div {
+            float: left;
+            width: 50%;
+            height: 500px;
+        }
+
+        .d1 {
+            background-color: blue;
+
+        }
+
+        .d2 {
+            background-color: green;
+
+        }
+
+        .parents::after {
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            zoom: 1;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test">id1</div>
+    <div id="id2">id2</div>
+
+    <div class="parents">
+        <div class="d1"></div>
+        <div class="d2"></div>
+    </div>
+    <div class="other"></div>
+    <script>
+        var a = 3;
+        // console.log(window.a);
+        // let b = 5;
+        // console.log(window.b)
+        const num = {
+            a: 10,
+            add() {
+                return this.a + 2;
+            },
+            reduce: () => this.a - 2
+        };
+        console.log(num.add());
+        console.log(num.reduce());
+
+
+        // for (let i = 0; i < 3; i++) {
+        //     setTimeout(() => console.log(i), 1);
+        // }
+
+        // function f() {
+        //     return f;
+        // }
+        // console.log(new f() instanceof f);
+        var foo = {
+            bar: function () {
+                return this.baz;
+            },
+            baz: 1
+        }
+        console.log(typeof (f = foo.bar)());
+
+
+        var x = 1;
+        if (function f() { }) {
+            x += typeof f;
+        }
+        console.log(x)
+
+        let al1 = {
+            length: 4,
+            0: 0,
+            1: 1,
+            3: 3,
+            4: 4,
+            5: 5,
+        };
+        console.log(Array.from(al1)) // [0, 1, undefined, 3]
+
+        function makeCallback(num) {
+  return function() {
+    alert(num);
+  };
+}
+for (var i = 0; i < 3; i++) {
+    document.getElementById('test').onclick = makeCallback(i);
+}
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom章节</title>
+</head>
+
+<body>
+    <div id="test" title="测试啊啊">测试123456</div>
+    <fieldset id="fieldest">
+        <legend>
+            which color do you prefer?hhhhhhhhhhhhhhhhhhhhh
+        </legend>
+        <ul>
+            <li>
+                <input type="radio" value="red" name="color" id="colorRed">
+                <label for="colorRed">Red</label>
+            </li>
+            <li>
+                <input type="radio" value="green" name="color" id="colorGreen">
+                <label for="colorGreen">Green</label>
+            </li>
+            <li>
+                <input type="radio" value="blue" name="color" id="colorBlue">
+                <label for="colorBlue">Blue</label>
+            </li>
+        </ul>
+    </fieldset>
+    <div id="attr" data-test="tst" style="color:red;" onclick="function my(){alter('只是测试')}"><b>测试getAttribute</b></div>
+
+    <div id="comment">
+        <!-- a comment-->
+    </div>
+    <button id="btn" data-myName="myName" data-my-id='12345'>测试</button>
+    <ul id="myList" onclick="sayHi()"></ul>
+    <div id="div"><b>hello</b> world!</div>
+    <script>
+        // let div = document.getElementById("test");
+        // div.dir = "rtl"
+        // alert(div.id)
+        // console.log(div)
+        // // console.log(document.getElementById("test").childNodes.item(0))
+        // let radios = document.getElementsByName("color");
+        // console.log(radios)
+        // document.write("hello ,world!")
+        // window.onload = function () {
+
+        // }
+        // let div = document.getElementById("attr");
+        // console.log(div.attributes.getNamedItem("id").nodeValue)
+        // console.log(div.getAttribute("style"));
+        // console.log(div.style);
+        // console.log(div.getAttribute("data-test"))
+        // console.log(div.data - test);
+        // console.log(div.getAttribute("onclick"))
+        // console.log(div.onclick)
+        // let div = document.getElementsByTagName("div");
+        // console.log(div.item(0))
+        // 文档片段
+        // let fra = document.createDocumentFragment();
+        // let ul = document.getElementById("myList");
+        // for (let i = 0; i < 3; i++) {
+        //     let li = document.createElement("li");
+        //     li.appendChild(document.createTextNode(`Item${i + 1}`));
+        //     fra.appendChild(li)
+        // }
+        // ul.appendChild(fra)
+
+        // 写一个跨平台的dom编程实现页面动态添加JavaScript函数
+        // function loadScriptString(code) {
+        //     var script = document.createElement("script");
+        //     try {
+        //         script.appendChild(document.createTextNode(code));
+        //     } catch (error) {
+        //         script.text = code;
+        //     }
+        //     document.body.appendChild(script);
+        // }
+        // loadScriptString("function sayHi(){alert('hi');}")
+
+        //mutationObserver接口
+        // let observer = new MutationObserver((records) => console.log(records));
+        // observer.observe(document.body, { attributes: true });
+        // document.body.className = "foo";
+        // console.log("changed body class"); 
+        // observer.disconnect(); 
+
+        // let observer = new MutationObserver((records) => console.log(records.map((x) => x)));
+        // observer.observe(document.body, { attributeOldValue: true });
+        // document.body.setAttribute("foo", "bar");
+        // document.body.setAttribute("foo", "baz");
+        // document.body.setAttribute("foo", "qux");
+
+        // document.body.innerHTML = "";
+        // let observer = new MutationObserver((records) => console.log(records));
+        // let subtreeRoot = document.createElement('div');
+        // let subtreeLeaf = document.createElement('span');
+        // document.body.appendChild(subtreeRoot);
+        // subtreeRoot.appendChild(subtreeLeaf);
+        // observer.observe(subtreeRoot, { attributes: true, subtree: true });
+        // // document.body.insertBefore(subtreeLeaf, subtreeRoot);
+        // subtreeLeaf.setAttribute('foo', 'baz');
+
+        // let b = document.getElementById('btn');
+        // console.log(b.dataset.myId)
+        // b.focus();
+        // console.log(document.hasFocus());
+
+        // window.onload = function () {
+        //     console.log(document.activeElement)
+        // }
+
+        // let res = document.getElementById("comment").innerHTML = "hello & world, <b>\"reader\"!</b>"
+        // console.log(res)
+        // console.log(document.getElementById("comment"))
+
+        // console.log(document.getElementById('test').appendChild(document.createElement('span')).appendChild(document.createTextNode('ceshi')))
+
+        // document.getElementById('btn').insertAdjacentText("beforeend", "this is beforebegin")
+
+        // let div = document.getElementById("fieldest");
+        // let filter = function (node) {
+        //     return node.tagName.toLowerCase() == 'li' ?
+        //         NodeFilter.FILTER_ACCEPT :
+        //         NodeFilter.FILTER_SKIP;
+        // }
+        // let iterator = document.createNodeIterator(div, NodeFilter.SHOW_ELEMENT, filter, false);
+        // let node = iterator.nextNode();
+        // while (node !== null) {
+        //     console.log(node.tagName);
+        //     node = iterator.nextNode();
+        // }
+
+        // let range1 = document.createRange(),
+        //     range2 = document.createRange(), 
+        //     btn = document.getElementById("attr");
+        // console.log(range1.selectNode(btn).startContainer);
+        // range2.selectNodeContents(btn)
+
+
+        let div = document.getElementById("div");
+        let range = document.createRange();
+        range.selectNode(div.firstChild.firstChild);
+        let span = document.createElement("span");
+        span.style.backgroundColor = "yellow";
+        range.surroundContents(span)
+
+    </script>
+
+</body>
+
+</html>

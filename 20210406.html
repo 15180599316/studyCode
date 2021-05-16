@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+</head>
+
+<body>
+    <script>
+        let p1 = Promise.resolve("foo");
+        let p2 = p1.finally();
+        let p3 = p1.finally(() => Promise.reject());
+        let p4 = p1.finally(() => new Promise(() => { }));
+
+        setTimeout(console.log, 0, p2);
+        setTimeout(console.log, 0, p3);
+        setTimeout(console.log, 0, p4);
+
+        let p = Promise.all([
+            Promise.resolve(3),
+            Promise.resolve(),
+            Promise.resolve(4)
+        ]);
+        p.then((values) => setTimeout(console.log, 0, values));
+
+        let p5 = Promise.race([
+            Promise.reject(3),
+            new Promise((resolve, reject) => setTimeout(reject, 0))
+        ])
+        p.catch((reason) => setTimeout(console.log, 0, reason));
+
+        // 写一个有意思的通用函数：可以把任意多个函数作为处理程序合成一个连续传值的约期连锁
+        function addTwo(x) {
+            return x + 2;
+        }
+        function addThree(x) {
+            return x + 3;
+        } function addFive(x) {
+            return x + 5;
+        }
+        function compose(...fns) {
+            return (x) => fns.reduce((promise, fn) => promise.then(fn), Promise.resolve(x))
+        }
+        let addTen = compose(addTwo, addThree, addFive);
+        addTen(5).then(console.log)
+    </script>
+</body>
+
+</html>
